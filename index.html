@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete HTML & CSS Concepts - Student Registration Form</title>
+    
+    <!-- INTERNAL CSS - All styles defined in this <style> tag -->
+    <style>
+        /* ========== BASIC SELECTORS & CSS SPECIFICITY ========== */
+        
+        /* Element Selector - Lowest specificity (0,0,1) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Type Selector - Specificity (0,0,1) */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* ========== CLASS SELECTOR & SPECIFICITY ========== */
+        /* Class Selector - Specificity (0,1,0) - Higher than type selector */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .section-info {
+            background-color: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        /* ========== FLEXBOX LAYOUT ========== */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-full {
+            flex: 1 1 100%;
+        }
+
+        /* ========== ID SELECTOR & HIGHEST SPECIFICITY ========== */
+        /* ID Selector - Specificity (1,0,0) - Highest specificity */
+        #formTitle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px 12px 0 0;
+            margin: -40px -40px 30px -40px;
+            text-align: center;
+        }
+
+        /* ========== ATTRIBUTE SELECTORS ========== */
+        /* Attribute Selector - Matches elements by attributes */
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== PSEUDO-CLASSES ========== */
+        /* :focus - When element is focused */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
+            background-color: #f9fafb;
+        }
+
+        /* :hover - When user hovers over element */
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="reset"]:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* :active - When element is being clicked */
+        input[type="submit"]:active,
+        input[type="reset"]:active {
+            transform: translateY(0);
+        }
+
+        /* :disabled - When input is disabled */
+        input:disabled,
+        textarea:disabled,
+        select:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* :checked - When checkbox/radio is checked */
+        input[type="checkbox"]:checked,
+        input[type="radio"]:checked {
+            accent-color: #667eea;
+        }
+
+        /* :required - HTML5 required attribute selector */
+        input:required,
+        textarea:required,
+        select:required {
+            border-color: #ff6b6b;
+        }
+
+        /* :invalid - When input has invalid value */
+        input:invalid {
+            border-color: #ff6b6b;
+        }
+
+        input:valid {
+            border-color: #51cf66;
+        }
+
+        /* ========== PSEUDO-ELEMENTS ========== */
+        /* ::before - Insert content before element */
+        .form-group label::before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* ::after - Insert content after element */
+        .required::after {
+            content: " *";
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* ::first-line - Style first line of text */
+        .section-info::first-line {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        /* ::selection - Style selected text */
+        ::selection {
+            background-color: #667eea;
+            color: white;
+        }
+
+        /* ::placeholder - Style placeholder text */
+        input::placeholder,
+        textarea::placeholder {
+            color: #aaa;
+        }
+
+        /* ========== COMBINATORS ========== */
+        /* Descendant Combinator (space) - Select nested elements */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        /* Child Combinator (>) - Direct children only */
+        .form-row > .form-group {
+            flex: 1;
+        }
+
+        /* Adjacent Sibling Combinator (+) - Next sibling */
+        label + input,
+        label + select,
+        label + textarea {
+            margin-top: -5px;
+        }
+
+        /* General Sibling Combinator (~) - Any following sibling */
+        .form-group ~ .form-group {
+            margin-top: 15px;
+        }
+
+        /* ========== BUTTON STYLING ========== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        input[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        input[type="reset"] {
+            background-color: #95a5a6;
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* ========== CHECKBOX AND RADIO STYLING ========== */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label,
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+
+        .checkbox-group label::before,
+        .radio-group label::before {
+            content: "";
+            margin-right: 10px;
+        }
+
+        /* ========== GRID LAYOUT ========== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* ========== SPECIFICITY EXAMPLES ========== */
+        /* Lower specificity (0,1,0) */
+        .important-note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        /* Higher specificity (0,2,0) - This will override the above if applied to same element */
+        .form-section .important-note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        /* Highest specificity (1,0,0) - ID selector would override class selectors */
+        /* Not used here, but demonstrated with #formTitle above */
+
+        /* ========== MEDIA QUERIES - RESPONSIVE DESIGN ========== */
+        /* Large screens (Desktop) - 1200px and above */
+        @media (min-width: 1200px) {
+            .container {
+                padding: 50px;
+            }
+
+            .form-row {
+                gap: 30px;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Medium screens (Tablet) - 768px to 1199px */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .form-row {
+                gap: 15px;
+            }
+
+            .form-group {
+                min-width: 200px;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Small screens (Mobile) - Below 768px */
+        @media (max-width: 767px) {
+            .container {
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            #formTitle {
+                margin: -20px -20px 20px -20px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin-top: 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-group {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            input[type="submit"],
+            input[type="reset"] {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Extra small screens (Mobile phones) - Below 480px */
+        @media (max-width: 479px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-group {
+                min-width: unset;
+            }
+        }
+
+        /* Dark mode preference */
+        @media (prefers-color-scheme: dark) {
+            .section-info {
+                background-color: #1e3a5f;
+                color: #e0e0e0;
+            }
+
+            .info-card {
+                background: linear-gradient(135deg, #2a2a3e 0%, #3d3d5c 100%);
+                color: #e0e0e0;
+            }
+        }
+
+        /* Orientation-specific */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .container {
+                margin-top: 10px;
+            }
+
+            h1 {
+                margin-bottom: 5px;
+            }
+        }
+
+        /* ========== ADDITIONAL STYLING ========== */
+        .concept-badge {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .code-example {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Accessibility - Focus visible styles */
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Transition for smooth hover effects */
+        a {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- SEMANTIC HTML - Using semantic tags for better structure -->
+    <main class="container">
+        <!-- Header Section -->
+        <header id="formTitle">
+            <h1>Student Registration Form</h1>
+            <p class="subtitle">Complete Web Development Concepts Demonstration</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="form-section">
+            <h2>📚 Concepts Covered in This Document</h2>
+            <div class="info-grid">
+                <article class="info-card">
+                    <h3>HTML Fundamentals</h3>
+                    <p>Semantic tags, attributes, form elements, meta tags, and proper document structure.</p>
+                </article>
+                <article class="info-card">
+                    <h3>CSS Styling</h3>
+                    <p>Internal CSS, inline styles, selectors, specificity, and pseudo-classes.</p>
+                </article>
+                <article class="info-card">
+                    <h3>Responsive Design</h3>
+                    <p>Flexbox, CSS Grid, Media Queries for different screen sizes.</p>
+                </article>
+                <article class="info-card">
+                    <h3>Advanced CSS</h3>
+                    <p>Pseudo-elements, gradients, transitions, animations, and styling techniques.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <div class="section-info">
+            <strong>💡 Tips:</strong> This form demonstrates all major HTML and CSS concepts. Resize your browser window to see responsive design in action!
+        </div>
+
+        <!-- Main Registration Form -->
+        <form onsubmit="handleSubmit(event)">
+            <!-- Personal Information Section -->
+            <section class="form-section">
+                <h2>Personal Information</h2>
+                <div class="section-info">
+                    <span class="concept-badge">Semantic HTML</span>
+                    <span class="concept-badge">HTML Attributes</span>
+                    <span class="concept-badge">Form Elements</span>
+                    This section uses semantic &lt;section&gt;, &lt;fieldset&gt;, and &lt;legend&gt; tags with proper HTML5 form attributes.
+                </div>
+
+                <fieldset>
+                    <legend>Basic Details</legend>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="required">First Name</label>
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                placeholder="Enter your first name"
+                                required
+                                pattern="[A-Za-z\s]{2,}"
+                                title="First name must contain at least 2 characters">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                placeholder="Enter your last name"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="required">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="your.email@example.com"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                placeholder="(123) 456-7890"
+                                pattern="[0-9\s\-\(\)+]{10,}"
+                                title="Please enter a valid phone number">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dob" class="required">Date of Birth</label>
+                            <input 
+                                type="date" 
+                                id="dob" 
+                                name="dob" 
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentId" class="required">Student ID</label>
+                            <input 
+                                type="number" 
+                                id="studentId" 
+                                name="studentId" 
+                                placeholder="e.g., 20240001"
+                                required
+                                min="1"
+                                max="999999">
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+
+            <!-- Academic Information Section -->
+            <section class="form-section">
+                <h2>Academic Information</h2>
+                <div class="section-info">
+                    <span class="concept-badge">Flexbox Layout</span>
+                    <span class="concept-badge">Select Element</span>
+                    Uses Flexbox to arrange form elements responsively across different screen sizes.
+                </div>
+
+                <fieldset>
+                    <legend>Educational Details</legend>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program" class="required">Program of Study</label>
+                            <select id="program" name="program" required>
+                                <option value="">-- Select a Program --</option>
+                                <option value="cs">Computer Science</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="business">Business Administration</option>
+                                <option value="arts">Arts & Sciences</option>
+                                <option value="medicine">Medicine</option>
+                                <option value="law">Law</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year" class="required">Year of Study</label>
+                            <select id="year" name="year" required>
+                                <option value="">-- Select Year --</option>
+                                <option value="1">First Year</option>
+                                <option value="2">Second Year</option>
+                                <option value="3">Third Year</option>
+                                <option value="4">Fourth Year</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gpa">Current GPA (0.0 - 4.0)</label>
+                            <input 
+                                type="number" 
+                                id="gpa" 
+                                name="gpa" 
+                                placeholder="3.5"
+                                min="0"
+                                max="4"
+                                step="0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="credits" class="required">Credits Completed</label>
+                            <input 
+                                type="number" 
+                                id="credits" 
+                                name="credits" 
+                                placeholder="Enter number of credits"
+                                required
+                                min="0"
+                                max="200">
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+
+            <!-- Preferences Section -->
+            <section class="form-section">
+                <h2>Preferences & Interests</h2>
+                <div class="section-info">
+                    <span class="concept-badge">Pseudo-classes</span>
+                    <span class="concept-badge">Checkboxes & Radio Buttons</span>
+                    Demonstrates :checked, :disabled, and other pseudo-class styles on form controls.
+                </div>
+
+                <fieldset>
+                    <legend>Academic Interests</legend>
+
+                    <label for="interests" style="display: block; font-weight: 600; margin-bottom: 15px;">Select Your Interests:</label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="interests" value="web-dev"> Web Development
+                        </label>
+                        <label>
+                            <input type="checkbox" name="interests" value="ai-ml"> Artificial Intelligence & Machine Learning
+                        </label>
+                        <label>
+                            <input type="checkbox" name="interests" value="cybersecurity"> Cybersecurity
+                        </label>
+                        <label>
+                            <input type="checkbox" name="interests" value="devops"> DevOps & Cloud Computing
+                        </label>
+                        <label>
+                            <input type="checkbox" name="interests" value="data-science"> Data Science
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset style="margin-top: 25px;">
+                    <legend>Preferred Study Schedule</legend>
+
+                    <label for="schedule" style="display: block; font-weight: 600; margin-bottom: 15px;">Choose Your Preferred Schedule:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="schedule" value="morning" required> Morning Classes (8 AM - 12 PM)
+                        </label>
+                        <label>
+                            <input type="radio" name="schedule" value="afternoon"> Afternoon Classes (1 PM - 5 PM)
+                        </label>
+                        <label>
+                            <input type="radio" name="schedule" value="evening"> Evening Classes (6 PM - 10 PM)
+                        </label>
+                        <label>
+                            <input type="radio" name="schedule" value="flexible"> Flexible Schedule
+                        </label>
+                    </div>
+                </fieldset>
+            </section>
+
+            <!-- Additional Information Section -->
+            <section class="form-section">
+                <h2>Additional Information</h2>
+                <div class="section-info">
+                    <span class="concept-badge">Textarea Element</span>
+                    <span class="concept-badge">Pseudo-elements (::placeholder)</span>
+                    This section demonstrates textarea styling and placeholder pseudo-element styling.
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label for="comments">Additional Comments:</label>
+                    <textarea 
+                        id="comments" 
+                        name="comments" 
+                        rows="5" 
+                        placeholder="Share any additional information about yourself, academic goals, or special accommodations needed..."></textarea>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <label>
+                        <input type="checkbox" name="terms" required style="margin-right: 10px;">
+                        <span class="required">I agree to the terms and conditions</span>
+                    </label>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <label>
+                        <input type="checkbox" name="newsletter">
+                        <span>Subscribe to newsletter for updates</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- CSS Concepts Demonstration -->
+            <section class="form-section">
+                <h2>CSS Concepts Demonstrated</h2>
+                <div class="code-example">
+                    <strong>Specificity Examples:</strong><br>
+                    - Element Selector: h1 { color: red; } → Specificity (0,0,1)<br>
+                    - Class Selector: .container { padding: 20px; } → Specificity (0,1,0)<br>
+                    - ID Selector: #formTitle { background: blue; } → Specificity (1,0,0)<br>
+                    - Inline Style: &lt;div style="color: green;"&gt; → Specificity (1,0,0,0)
+                </div>
+
+                <div class="important-note">
+                    <strong>Media Queries Used:</strong> This document uses responsive design with breakpoints at 480px, 768px, 1200px and includes dark mode support!
+                </div>
+            </section>
+
+            <!-- Form Actions -->
+            <div class="button-group">
+                <input type="submit" value="✓ Submit Registration">
+                <input type="reset" value="✕ Clear Form">
+            </div>
+
+            <!-- Success Message (Initially Hidden) -->
+            <div class="success-message" id="successMessage">
+                ✓ Form submitted successfully! Your registration has been recorded.
+            </div>
+        </form>
+
+        <!-- HTML & CSS Concepts Reference -->
+        <section class="form-section">
+            <h2>HTML Tags & Attributes Used</h2>
+            <div class="section-info">
+                This document demonstrates comprehensive HTML concepts.
+            </div>
+
+            <div class="code-example">
+                <strong>Semantic HTML Tags:</strong><br>
+                &lt;main&gt;, &lt;header&gt;, &lt;section&gt;, &lt;article&gt;, &lt;fieldset&gt;, &lt;legend&gt;, &lt;footer&gt;<br><br>
+
+                <strong>Form Elements & Attributes:</strong><br>
+                &lt;form&gt;, &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt;, &lt;label&gt;<br>
+                Attributes: type, id, name, placeholder, required, pattern, min, max, step<br><br>
+
+                <strong>Meta Tags:</strong><br>
+                &lt;meta charset="UTF-8"&gt;, &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br><br>
+
+                <strong>CSS in HTML:</strong><br>
+                - Internal CSS: &lt;style&gt; tag in &lt;head&gt; section<br>
+                - Inline CSS: style attribute on HTML elements (Example: style="display: flex;")<br>
+                - External CSS: &lt;link rel="stylesheet" href="style.css"&gt; (Not used here, but mentioned)
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; color: #888;">
+            <p><small>This HTML file demonstrates all major HTML5 and CSS3 concepts including Semantic HTML, Flexbox, CSS Grid, Media Queries, CSS Specificity, Pseudo-classes, and Pseudo-elements.</small></p>
+            <p><small>© 2026 Web Development Learning Resource</small></p>
+        </footer>
+    </main>
+
+    <!-- JavaScript for form handling - Demonstrates interactivity -->
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const firstName = formData.get('firstName');
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Log form data
+            console.log('Form submitted with data:', Object.fromEntries(formData));
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Additional interactivity - Disable comments if not selected any interests
+        const interestCheckboxes = document.querySelectorAll('input[name="interests"]');
+        const commentsField = document.getElementById('comments');
+        
+        interestCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const anyChecked = Array.from(interestCheckboxes).some(cb => cb.checked);
+                // This just demonstrates event handling - comments aren't actually disabled
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!--
+Command	Description
+git init	Initializes a new Git repository
+git status	Shows current repo status
+git add .	Adds all files to staging
+git add <file>	Adds specific file
+git commit -m "msg"	Creates a commit
+git log	Shows commit history
+git remote -v	Shows remote repositories
+git remote add origin <url>	Links local repo to GitHub
+git push -u origin branch_name Pushes branch to GitHub
+git branch	Lists branches
+git branch -M main	Renames branch to main
+git checkout <branch>	Switches branches
+git checkout -b <branch>	Creates + switches branch
+git push origin main	Pushes commits to GitHub
+git pull origin main	Pulls latest changes
+git clone <url>	Copies a remote repo locally
+git diff	Shows file differences
+git reset <file>	Unstages file
+git reset --hard	Resets everything (dangerous)
+git stash	Temporarily saves changes
+git stash pop	Restores stashed changes
+git fetch	Downloads remote updates
+git merge <branch>	Merges branch into current
+git rebase <branch>	Reapplies commits over another
+git tag	Creates version tags
+git rm <file>	Deletes file and stages removal
+-->
