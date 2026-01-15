@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCSS Features Demo</title>
+    <!-- Note: In a real project with SASS installed, we would link to css/style.css -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .note {
+            background: #f0f0f0;
+            padding: 10px;
+            border-left: 5px solid #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="note">
+        <strong>Note:</strong> Since a SASS compiler is not available in this environment, this project demonstrates the
+        <em>source code</em> structure.
+        The HTML structure below is ready to be styled by the accompanying SCSS files once compiled.
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <h1>SCSS Power</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Welcome to SCSS</h2>
+            <p>Demonstrating Variables, Nesting, Mixins, Extend, and Operators.</p>
+            <button class="btn-primary">Get Started</button>
+            <button class="btn-secondary">Learn More</button>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <h3>Variable Logic</h3>
+                <p>Consistent theming with variables.</p>
+            </div>
+            <div class="card success-card">
+                <h3>Success!</h3>
+                <p>This card extends the base card styles.</p>
+            </div>
+            <div class="card error-card">
+                <h3>Error!</h3>
+                <p>This card also extends base styles but with different colors.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 SCSS Demo.</p>
+    </footer>
+
+</body>
+
+</html>
