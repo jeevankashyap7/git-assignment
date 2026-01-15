@@ -1,0 +1,12 @@
+{
+  "name": "scss-project",
+  "version": "1.0.0",
+  "description": "SCSS Demo Project",
+  "scripts": {
+    "sass:build": "sass scss:css",
+    "sass:watch": "sass --watch scss:css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

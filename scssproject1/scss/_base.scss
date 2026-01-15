@@ -1,0 +1,16 @@
+// _base.scss
+
+// Placeholder selector - won't be compiled to CSS on its own
+%card-shared {
+    background: $white;
+    padding: $spacing-unit * 2; // Operator: multiplication
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: $spacing-unit;
+}
+
+%alert-box {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}

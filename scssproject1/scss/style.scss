@@ -1,0 +1,101 @@
+// style.scss
+
+// Import Partials
+@import 'variables';
+@import 'reset';
+@import 'mixins';
+@import 'base';
+
+// Container centering
+.container {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+}
+
+// Header specific styles (Nesting)
+.main-header {
+    background: $white;
+    padding: $spacing-unit * 2 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .container {
+        @include flex-between; // Using Mixin
+    }
+
+    h1 {
+        color: $primary-color;
+    }
+
+    nav ul {
+        display: flex;
+        gap: 20px;
+
+        li a {
+            font-weight: bold;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+// Hero Section
+.hero {
+    text-align: center;
+    padding: 50px 0;
+
+    h2 {
+        font-size: 2.5em;
+        margin-bottom: $spacing-unit;
+    }
+
+    p {
+        margin-bottom: $spacing-unit * 3;
+        color: lighten($text-color, 20%);
+    }
+
+    .btn-primary {
+        @include button-style($primary-color);
+    }
+
+    .btn-secondary {
+        @include button-style($secondary-color);
+        margin-left: 10px;
+    }
+}
+
+// Features Section demonstrating @extend
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .card {
+        @extend %card-shared; // Inheritance
+        @include grid-column(3); // Mixin with math
+
+        h3 {
+            margin-bottom: 10px;
+        }
+    }
+
+    .success-card {
+        @extend %card-shared;
+        border-top: 5px solid $secondary-color;
+    }
+
+    .error-card {
+        @extend %card-shared;
+        border-top: 5px solid $danger-color;
+    }
+}
+
+// Footer
+.main-footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background: darken($bg-color, 5%);
+}
